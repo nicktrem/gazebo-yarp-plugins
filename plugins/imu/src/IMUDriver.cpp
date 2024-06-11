@@ -20,11 +20,12 @@ using namespace boost::placeholders;
 
 using namespace yarp::dev;
 
-const unsigned YarpIMUChannelsNumber = 12; //The IMU has 12 fixed channels
+const unsigned YarpIMUChannelsNumber = 15; //The IMU has 12 fixed channels
 constexpr size_t rpyStartIdx   = 0;
 constexpr size_t accelStartIdx = 3;
 constexpr size_t gyroStartIdx  = 6;
 constexpr size_t magnStartIdx  = 9;
+constexpr size_t positionStartIdx  = 12;
 const std::string YarpIMUScopedName {"sensorScopedName"};
 
 GazeboYarpIMUDriver::GazeboYarpIMUDriver()  = default;
@@ -219,6 +220,31 @@ bool GazeboYarpIMUDriver::getOrientationSensorFrameName(size_t sens_index, std::
 bool GazeboYarpIMUDriver::getOrientationSensorMeasureAsRollPitchYaw(size_t sens_index, yarp::sig::Vector& rpy, double& timestamp) const
 {
     return genericGetMeasure(sens_index, rpy, timestamp, rpyStartIdx);
+}
+
+size_t GazeboYarpIMUDriver::getNrOfPositionSensors() const
+{
+    return 1;
+}
+
+yarp::dev::MAS_status GazeboYarpIMUDriver::getPositionSensorStatus(size_t sens_index) const
+{
+    return genericGetStatus(sens_index);
+}
+
+bool GazeboYarpIMUDriver::getPositionSensorName(size_t sens_index, std::string& name) const
+{
+    return genericGetSensorName(sens_index, name);
+}
+
+bool GazeboYarpIMUDriver::getPositionSensorFrameName(size_t sens_index, std::string& frameName) const
+{
+    return genericGetFrameName(sens_index, frameName);
+}
+
+bool GazeboYarpIMUDriver::getPositionSensorMeasure(size_t sens_index, yarp::sig::Vector& xyz, double& timestamp) const
+{
+    return genericGetMeasure(sens_index, xyz, timestamp, positionStartIdx);
 }
 
 size_t GazeboYarpIMUDriver::getNrOfThreeAxisMagnetometers() const

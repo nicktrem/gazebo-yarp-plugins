@@ -47,7 +47,8 @@ class yarp::dev::GazeboYarpIMUDriver:
     public yarp::dev::IThreeAxisGyroscopes,
     public yarp::dev::IThreeAxisLinearAccelerometers,
     public yarp::dev::IThreeAxisMagnetometers,
-    public yarp::dev::IOrientationSensors
+    public yarp::dev::IOrientationSensors,
+    public yarp::dev::IPositionSensors
 {
 public:
     GazeboYarpIMUDriver();
@@ -119,6 +120,18 @@ public:
     bool getOrientationSensorFrameName(size_t sens_index, std::string &frameName) const override;
 
     bool getOrientationSensorMeasureAsRollPitchYaw(size_t sens_index, yarp::sig::Vector& rpy, double& timestamp) const override;
+
+    /* IPositionSensors methods */
+
+    size_t getNrOfPositionSensors() const override;
+
+    yarp::dev::MAS_status getPositionSensorStatus(size_t sens_index) const override;
+
+    bool getPositionSensorName(size_t sens_index, std::string &name) const override;
+
+    bool getPositionSensorFrameName(size_t sens_index, std::string &frameName) const override;
+
+    bool getPositionSensorMeasure(size_t sens_index, yarp::sig::Vector& xyz, double& timestamp) const override;
 
 
 private:
