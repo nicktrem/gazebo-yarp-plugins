@@ -193,7 +193,9 @@ bool GazeboYarpIMUDriver::getThreeAxisLinearAccelerometerFrameName(size_t sens_i
 
 bool GazeboYarpIMUDriver::getThreeAxisLinearAccelerometerMeasure(size_t sens_index, yarp::sig::Vector& out, double& timestamp) const
 {
-    return genericGetMeasure(sens_index, out, timestamp, accelStartIdx);
+    // return genericGetMeasure(sens_index, out, timestamp, accelStartIdx);
+    out = {4.0, 4.0, 4.0};
+    return true;
 }
 
 
